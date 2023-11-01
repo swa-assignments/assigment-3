@@ -8,8 +8,10 @@
 
 .label {
     font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .button {
@@ -21,6 +23,19 @@
     background-color: #0011ff;
     color: #fff;
     margin-bottom: 1rem;
+    cursor: pointer;
+}
+
+.buttonRegister {
+    width: 100%;
+    height: 3rem;
+    font-size: 1.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid #0011ff;
+    background-color: #fff;
+    color: #0011ff;
+    margin-bottom: 1rem;
+    cursor: pointer;
 }
 
 .input {
