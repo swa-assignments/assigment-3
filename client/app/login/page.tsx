@@ -8,6 +8,8 @@ function Login() {
     const [password, setPassword] = useState<string>('');
     const router = useRouter();
 
+    console.log("lol");
+
     const submitLogin = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
 
