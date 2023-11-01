@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import styles from './styles.module.css';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 function Login() {
     const [username, setUsername] = useState<string>('');
