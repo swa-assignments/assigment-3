@@ -44,7 +44,7 @@ function Profile() {
                             type='button'>
                         Update profile
                     </button>
-                    <button onClick={() => window.location.href = '/play'}
+                    <button onClick={() => window.location.href = '/board'}
                             className={styles.profileButton}
                             type='button'>
                         Back to the game

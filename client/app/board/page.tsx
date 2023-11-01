@@ -1,8 +1,24 @@
+"use client";
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useRouter} from "next/navigation";
 
 const BoardView = () => {
-  return(<h1>Cine citeste asta e </h1>)
+
+  const router = useRouter();
+
+
+  return(
+  <div>
+    <h1>Play the game </h1>
+    
+    <button onClick={()=>router.push("/profile")}
+            type='button'>
+            View Profile
+    </button>
+    </div>
+
+  )
+  
 
 }
 
