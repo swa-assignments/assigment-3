@@ -34,7 +34,6 @@ function Login() {
           sessionStorage.setItem('token', body.token);
           sessionStorage.setItem('userId', body.userId);
           router.push('/board');
-          // navigate here
         })
         .catch(() => {
           alert('Error logging in');
@@ -67,6 +66,9 @@ function Login() {
         <br />
         <button className={styles.button} type="submit">
           Login
+        </button>
+        <button className={styles.buttonRegister} type="button" onClick={() => router.push("/register")}>
+          Register
         </button>
       </form>
     </div>
