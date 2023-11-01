@@ -11,6 +11,30 @@
       "password": "1234",
       "id": 1,
       "admin": false
+    },
+    {
+      "username": "aloga",
+      "password": "12345",
+      "id": 2,
+      "admin": false
+    },
+    {
+      "username": "aloha",
+      "password": "12345",
+      "id": 3,
+      "admin": false
+    },
+    {
+      "username": "pitagora",
+      "password": "pitagora",
+      "id": 4,
+      "admin": false
+    },
+    {
+      "username": "alpha",
+      "password": "omega",
+      "id": 5,
+      "admin": false
     }
   ],
   "games": [
