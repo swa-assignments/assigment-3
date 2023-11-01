@@ -1,10 +1,12 @@
 'use client'
 import React, { useState } from 'react';
 import styles from './styles.module.css';
+import { useRouter } from 'next/router';
 
 function Login() {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const router = useRouter();
 
     const submitLogin = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
@@ -31,6 +33,7 @@ function Login() {
                 .then((body) => {
                     sessionStorage.setItem('token', body.token);
                     sessionStorage.setItem('userId', body.userId);
+                    router.push('/board');
                     // navigate here
                 })
                 .catch(() => {
