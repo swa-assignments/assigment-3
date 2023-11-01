@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import styles from './styles.module.css';
 
-function LoginView() {
+function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -38,4 +38,4 @@ function LoginView() {
             );
 }
 
-export default LoginView;
+export default Login;

@@ -1,11 +1,36 @@
 {
   "users": [
-    { 
+    {
       "username": "admin",
       "password": "secret",
-      "id" : 0,
-      "admin": true 
+      "id": 0,
+      "admin": true
+    },
+    {
+      "username": "dan",
+      "password": "1234",
+      "id": 1,
+      "admin": false
     }
   ],
-  "games": []
+  "games": [
+    {
+      "user": 1,
+      "id": 1,
+      "score": 0,
+      "completed": false
+    },
+    {
+      "user": 1,
+      "id": 2,
+      "score": 0,
+      "completed": false
+    },
+    {
+      "user": 1,
+      "id": 3,
+      "score": 0,
+      "completed": false
+    }
+  ]
 }
