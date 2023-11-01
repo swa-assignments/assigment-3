@@ -1,34 +1,56 @@
 'use client'
 import React, { useState } from 'react';
 import styles from './styles.module.css';
+import { useNavigate } from "react-router-dom";
 
 function Login() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [username, setUsername] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const navigate = useNavigate();
 
-    const handleUsernameChange = (event: any) => {
-        setUsername(event.target.value);
-    };
+    const submitLogin = (e: React.FormEvent<HTMLFormElement>): void => {
+        e.preventDefault();
 
-    const handlePasswordChange = (event: any) => {
-        setPassword(event.target.value);
-    };
-
-    const handleSubmit = (event: any) => {
-        event.preventDefault();
-        // handle login logic here
+        if (username.trim().length === 0 || password.trim().length === 0) {
+            alert('Username and password cannot be empty');
+        } else {
+            fetch('http://localhost:9090/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: username.trim(),
+                    password: password.trim()
+                }),
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json().then((data) => data);
+                    }
+                    throw {};
+                })
+                .then((body) => {
+                    sessionStorage.setItem('token', body.token);
+                    sessionStorage.setItem('userId', body.userId);
+                    navigate('/play');
+                })
+                .catch(() => {
+                    alert('Error logging in');
+                });
+        }
     };
 
     return (<div className={styles.loginContainer}>
-<form onSubmit={handleSubmit}>
+<form onSubmit={submitLogin}>
             <label className={styles.label}>
                 Username:
-                <input className={styles.input} type="text" value={username} onChange={handleUsernameChange} />
+                <input className={styles.input} type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
             </label>
             <br />
             <label className={styles.label}>
                 Password:
-                <input className={styles.input} type="password" value={password} onChange={handlePasswordChange} />
+                <input className={styles.input} type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
             </label>
             <br />
             <button className={styles.button} type="submit">Login</button>
