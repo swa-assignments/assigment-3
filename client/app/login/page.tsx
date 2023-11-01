@@ -55,10 +55,10 @@ function Login() {
             </label>
             <br />
             <button className={styles.button} type="submit">Login</button>
+            <button className={styles.button} onClick={() => router.push("/register")} type='button'>Register</button>
         </form>
-
     </div>
-            );
+    );
 }
 
 export default Login;
