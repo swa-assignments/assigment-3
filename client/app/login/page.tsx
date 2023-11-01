@@ -1,12 +1,10 @@
 'use client'
 import React, { useState } from 'react';
 import styles from './styles.module.css';
-import { useNavigate } from "react-router-dom";
 
 function Login() {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-    const navigate = useNavigate();
 
     const submitLogin = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
@@ -33,7 +31,7 @@ function Login() {
                 .then((body) => {
                     sessionStorage.setItem('token', body.token);
                     sessionStorage.setItem('userId', body.userId);
-                    navigate('/play');
+                    // navigate here
                 })
                 .catch(() => {
                     alert('Error logging in');
