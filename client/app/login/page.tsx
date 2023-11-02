@@ -54,7 +54,7 @@ function Login() {
 
     function openModal() {
         setTimeout(() => {
-            setOpen(false)
+            setOpen(true)
         }, 500);
 
         setTimeout(() => {

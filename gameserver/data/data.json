@@ -45,6 +45,14 @@
       "password": "s",
       "id": 6,
       "admin": false
+    },
+    {
+      "username": "1",
+      "password": "1",
+      "id": 7,
+      "admin": false,
+      "firstName": "heere",
+      "lastName": "re"
     }
   ],
   "games": [

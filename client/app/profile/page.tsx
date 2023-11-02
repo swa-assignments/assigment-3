@@ -48,6 +48,7 @@ function Profile() {
         dispatch(updateUserInformation())
             .then(() => {
                 setSuccess('User information updated')
+
             })
             .catch(() => {
                 setError('Something occurred while updating user information');
@@ -120,12 +121,13 @@ function Profile() {
 
                             <Toast.Root className={styles.ToastRoot} open={open} onOpenChange={openModal}>
                                 <Toast.Title className={styles.ToastTitle}>
-                                    {(error !== undefined || error !== null || error === '') && (
+                                    {/* TODO: Needs something to remake (not the best implementation)*/}
+                                    {(error != null && error === '') && (
                                         <span className={styles.ToastTitleErrorText}>
                                             {error}
                                         </span>
                                     )}
-                                    {(success !== undefined || success !== null || success !== '') && (
+                                    {(success != null || success === '') && (
                                         <span className={styles.ToastTitleSuccessText}>
                                             {success}
                                         </span>
