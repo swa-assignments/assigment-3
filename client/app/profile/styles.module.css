@@ -49,3 +49,9 @@
     background: black;
     color: white;
 }
+
+.profileButtonGroup {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}

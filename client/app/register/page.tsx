@@ -1,18 +1,21 @@
 "use client"
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import {useState} from "react";
+
 import styles from './styles.module.css';
+import {useRouter} from "next/navigation";
 
 const RegisterUser = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
     const router = useRouter();
 
-        const submitCreateUser = (e: { preventDefault: () => void; }) => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const submitCreateUser = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
 
         if (username.trim().length === 0 || password.trim().length === 0) {
+            // TODO: same here
             alert('Username and password cannot be empty');
         } else {
             fetch('http://localhost:9090/users', {
@@ -43,6 +46,7 @@ const RegisterUser = () => {
                     sessionStorage.setItem('userId', _body.userId);
                     router.push("/board")
                 }).catch(() => {
+                    // TODO: add a popoup instead of alert
                     alert('Error logging in');
                 });
             }).catch(() => {
@@ -52,18 +56,22 @@ const RegisterUser = () => {
     }
 
     return (
-        <div className={ styles.registerUserContainer }>
-            <h1 className = { styles.pageTitle }>Register page</h1>
+        <div className={styles.registerUserContainer}>
+            <h1 className={styles.pageTitle}>Register</h1>
             <form onSubmit={submitCreateUser}>
-                <label className={ styles.label }>Username
-                    <input className={ styles.input } value={ username } onChange={(e) => setUsername(e.target.value)} type="text" />
+                <label className={styles.label}>Username
+                    <input className={styles.input} value={username} onChange={(e) => setUsername(e.target.value)}
+                           type="text"/>
                 </label>
                 <br/>
-                <label className={ styles.label }>Password
-                    <input className={ styles.input } value={ password } onChange={(e) => setPassword(e.target.value)} type="password"/>
+                <label className={styles.label}>Password
+                    <input className={styles.input} value={password} onChange={(e) => setPassword(e.target.value)}
+                           type="password"/>
                 </label>
                 <br/>
-                <button className={ styles.button } type="submit">Create profile</button>
+                <div className={styles.buttonsContainer}>
+                    <button className={styles.button} type="submit">Create profile</button>
+                </div>
             </form>
         </div>
     )

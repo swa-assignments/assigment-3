@@ -1,7 +1,16 @@
+"use client"
+
+import {useRouter} from 'next/navigation';
+import {useEffect} from "react";
+
 export default function Home() {
-  return (
-    <div>
-      SWA Assignment 3
-    </div>
-  )
+    const router = useRouter();
+
+    useEffect(() => {
+        router.push('/login');
+    }, []);
+
+    return (
+        <></>
+    )
 }
