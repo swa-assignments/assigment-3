@@ -1,11 +1,18 @@
 "use client"
 
-import {useState} from "react";
+import React, {useState} from "react";
+
+import * as Toast from '@radix-ui/react-toast';
 
 import styles from './styles.module.css';
 import {useRouter} from "next/navigation";
 
 const RegisterUser = () => {
+    // Toast state
+    const [open, setOpen] = useState(false);
+    // Errors state
+    const [error, setError] = useState<string>('');
+
     const router = useRouter();
 
     const [username, setUsername] = useState('');
@@ -15,44 +22,51 @@ const RegisterUser = () => {
         e.preventDefault();
 
         if (username.trim().length === 0 || password.trim().length === 0) {
-            // TODO: same here
-            alert('Username and password cannot be empty');
+            setError('Username and password cannot be empty');
+            // alert('Username and password cannot be empty'   );
         } else {
             fetch('http://localhost:9090/users', {
                 method: 'POST', headers: {
                     'Content-Type': 'application/json'
-                }, body: JSON.stringify({
+                },
+                body: JSON.stringify({
                     username: username.trim(), password: password.trim()
                 }),
             }).then((response) => {
                 if (response.ok) {
                     return response.json().then((data) => data);
                 }
-                throw {};
             }).then((_body) => {
                 return fetch('http://localhost:9090/login', {
                     method: 'POST', headers: {
                         'Content-Type': 'application/json'
-                    }, body: JSON.stringify({
+                    },
+                    body: JSON.stringify({
                         username: _body.username, password: _body.password,
                     }),
                 }).then((response) => {
                     if (response.ok) {
                         return response.json().then((data) => data);
                     }
-                    throw {};
                 }).then((_body) => {
                     sessionStorage.setItem('token', _body.token);
                     sessionStorage.setItem('userId', _body.userId);
                     router.push("/board")
                 }).catch(() => {
-                    // TODO: add a popoup instead of alert
-                    alert('Error logging in');
+                    setError('Can not log in');
                 });
             }).catch(() => {
-                alert('Error creating user');
+                setError('Something is wrong');
             });
         }
+    }
+
+    function openModal() {
+        setOpen(true)
+
+        setTimeout(() => {
+            setOpen(false)
+        }, 4000);
     }
 
     return (
@@ -70,7 +84,19 @@ const RegisterUser = () => {
                 </label>
                 <br/>
                 <div className={styles.buttonsContainer}>
-                    <button className={styles.button} type="submit">Create profile</button>
+                    <Toast.Provider swipeDirection="right">
+                        <button className={styles.button} type="submit" onClick={openModal}>
+                            Create profile
+                        </button>
+
+                        <Toast.Root className={styles.ToastRoot} open={open} onOpenChange={openModal}>
+                            <Toast.Title className={styles.ToastTitle}>
+                                <span className={styles.ToastTitleErrorText}>ERROR:</span> {error ? error : ''}
+                            </Toast.Title>
+                        </Toast.Root>
+
+                        <Toast.Viewport className={styles.ToastViewport}/>
+                    </Toast.Provider>
                 </div>
             </form>
         </div>

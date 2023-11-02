@@ -10,7 +10,9 @@
       "username": "dan",
       "password": "1234",
       "id": 1,
-      "admin": false
+      "admin": false,
+      "firstName": "Dan",
+      "lastName": "Pintea"
     },
     {
       "username": "Boierul",
@@ -19,6 +21,30 @@
       "admin": false,
       "firstName": "Dan",
       "lastName": "Pintea"
+    },
+    {
+      "username": "test",
+      "password": "test",
+      "id": 3,
+      "admin": false
+    },
+    {
+      "username": "test2",
+      "password": "test2",
+      "id": 4,
+      "admin": false
+    },
+    {
+      "username": "fa",
+      "password": "fa",
+      "id": 5,
+      "admin": false
+    },
+    {
+      "username": "ads",
+      "password": "s",
+      "id": 6,
+      "admin": false
     }
   ],
   "games": [
@@ -39,6 +65,18 @@
       "id": 3,
       "score": 0,
       "completed": false
+    },
+    {
+      "user": 1,
+      "id": 4,
+      "score": 0,
+      "completed": false
+    },
+    {
+      "user": 1,
+      "id": 5,
+      "score": 4,
+      "completed": true
     }
   ]
 }

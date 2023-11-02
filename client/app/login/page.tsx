@@ -2,20 +2,29 @@
 
 import React, {useState} from 'react';
 
+import * as Toast from '@radix-ui/react-toast';
+
 import styles from './styles.module.css';
 import {useRouter} from 'next/navigation';
 
+
 function Login() {
+    // Toast state
+    const [open, setOpen] = useState(false);
+    // Errors state
+    const [error, setError] = useState<string>('');
+
     const router = useRouter();
 
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 
+
     const submitLogin = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
 
         if (username.trim().length === 0 || password.trim().length === 0) {
-            alert('Username and password cannot be empty');
+            setError('Username and password cannot be empty');
         } else {
             fetch('http://localhost:9090/login', {
                 method: 'POST',
@@ -31,7 +40,6 @@ function Login() {
                     if (response.ok) {
                         return response.json().then((data) => data);
                     }
-                    throw {};
                 })
                 .then((body) => {
                     sessionStorage.setItem('token', body.token);
@@ -39,11 +47,20 @@ function Login() {
                     router.push('/board');
                 })
                 .catch(() => {
-                    // TODO: add a popoup instead of alert
-                    alert('Error logging in');
+                    setError('Wrong username or password');
                 });
         }
     };
+
+    function openModal() {
+        setTimeout(() => {
+            setOpen(false)
+        }, 500);
+
+        setTimeout(() => {
+            setOpen(false)
+        }, 4000);
+    }
 
     return (
         <div className={styles.loginContainer}>
@@ -68,11 +85,24 @@ function Login() {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </label>
+
                 <br/>
+
                 <div className={styles.buttonsContainer}>
-                    <button className={styles.button} type="submit">
-                        Login
-                    </button>
+                    <Toast.Provider swipeDirection="right">
+                        <button className={styles.button} type="submit" onClick={openModal}>
+                            Login
+                        </button>
+
+                        <Toast.Root className={styles.ToastRoot} open={open} onOpenChange={openModal}>
+                            <Toast.Title className={styles.ToastTitle}>
+                                <span className={styles.ToastTitleErrorText}>ERROR:</span> {error ? error : ''}
+                            </Toast.Title>
+                        </Toast.Root>
+
+                        <Toast.Viewport className={styles.ToastViewport}/>
+                    </Toast.Provider>
+
                     <button className={styles.buttonText} type="button" onClick={() => router.push("/register")}>
                         Create account
                     </button>

@@ -1,15 +1,24 @@
 "use client"
 
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {useRouter} from "next/navigation";
 
 import styles from './styles.module.css';
-import {fetchUserInformation, updateUserInformation, setFirstName, setLastName} from "@/app/redux/profileSlice";
+import {fetchUserInformation, setFirstName, setLastName, updateUserInformation} from "@/app/redux/profileSlice";
+
+import * as Toast from "@radix-ui/react-toast";
 
 function Profile() {
     const router = useRouter();
     const dispatch = useDispatch();
+
+    // Toast state
+    const [open, setOpen] = useState(false);
+    // Errors state
+    const [error, setError] = useState<string>('');
+    // Success state
+    const [success, setSuccess] = useState<string>('');
 
     // Check if the user is logged in on page load and fetch info on the first render
     useEffect(() => {
@@ -26,7 +35,7 @@ function Profile() {
         if (!sessionStorage.getItem('token')) return;
 
         dispatch(fetchUserInformation()).catch(() => {
-            alert('An error occurred while fetching user information');
+            setError('Failed fetching user information');
         });
     }
 
@@ -34,12 +43,14 @@ function Profile() {
     const updateUserLocal = (e) => {
         e?.preventDefault();
 
+        openModal();
+
         dispatch(updateUserInformation())
             .then(() => {
-                alert('User information updated');
+                setSuccess('User information updated')
             })
             .catch(() => {
-                alert('An error occurred while updating user information');
+                setError('Something occurred while updating user information');
             });
     }
 
@@ -56,14 +67,19 @@ function Profile() {
                 router.push('/login');
                 return;
             }
-
-            throw {
-                message: 'Error logging out'
-            };
         }).catch(() => {
-            // TODO: add a pop-up instead of alert
-            alert('Error logging out');
+            setError('Logging out failed');
         });
+    }
+
+    function openModal() {
+        setTimeout(() => {
+            setOpen(true)
+        }, 500);
+
+        setTimeout(() => {
+            setOpen(false)
+        }, 4000);
     }
 
     return (
@@ -95,11 +111,32 @@ function Profile() {
                         className={styles.input} id='input-lastName' type="text"/>
 
                     <div className={styles.profileButtonGroup}>
-                        <button onClick={updateUserLocal}
-                                className={styles.button}
-                                type='button'>
-                            Update profile
-                        </button>
+                        <Toast.Provider swipeDirection="right">
+                            <button onClick={updateUserLocal}
+                                    className={styles.button}
+                                    type='button'>
+                                Update profile
+                            </button>
+
+                            <Toast.Root className={styles.ToastRoot} open={open} onOpenChange={openModal}>
+                                <Toast.Title className={styles.ToastTitle}>
+                                    {(error !== undefined || error !== null || error === '') && (
+                                        <span className={styles.ToastTitleErrorText}>
+                                            {error}
+                                        </span>
+                                    )}
+                                    {(success !== undefined || success !== null || success !== '') && (
+                                        <span className={styles.ToastTitleSuccessText}>
+                                            {success}
+                                        </span>
+                                    )}
+                                    {/*<span className={styles.ToastTitleErrorText}>ERROR:</span> {error ? error : ''}*/}
+                                    {/*<span className={styles.ToastTitleSuccessText}>SUCCESS:</span> {success ? success : ''}*/}
+                                </Toast.Title>
+                            </Toast.Root>
+
+                            <Toast.Viewport className={styles.ToastViewport}/>
+                        </Toast.Provider>
                         <button onClick={() => router.push('/board')}
                                 className={styles.button}
                                 type='button'>
