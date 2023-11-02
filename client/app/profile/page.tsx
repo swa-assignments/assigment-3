@@ -2,22 +2,29 @@
 
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
+import {useRouter} from "next/navigation";
 
 import styles from './styles.module.css';
-import {useRouter} from "next/navigation";
-import {fetchUserInformation, setFirstName, setLastName, updateUserInformation} from "@/app/redux/profileSlice";
+import {fetchUserInformation, updateUserInformation, setFirstName, setLastName} from "@/app/redux/profileSlice";
 
 function Profile() {
     const router = useRouter();
     const dispatch = useDispatch();
 
-    // Fetch info on the first render
+    // Check if the user is logged in on page load and fetch info on the first render
     useEffect(() => {
+        if (!sessionStorage.getItem('token')) {
+            router.push('/login');
+        }
+
         fetchUserInfo();
     }, [])
 
     // Fetch user information on page load from the server
     function fetchUserInfo() {
+        // If there is no token, do not fetch user information and redirect to login page (to avoid alert)
+        if (!sessionStorage.getItem('token')) return;
+
         dispatch(fetchUserInformation()).catch(() => {
             alert('An error occurred while fetching user information');
         });
@@ -60,55 +67,57 @@ function Profile() {
     }
 
     return (
-        <div className={styles.profileContainer}>
-            <h1 className={styles.profileText}><b>Profile</b></h1>
+        (sessionStorage.getItem('token')) ? <div className={styles.profileContainer}>
+                <h1 className={styles.profileText}><b>Profile</b></h1>
 
-            <form onSubmit={updateUserLocal} className={styles.profileForm}>
-                <div className={styles.profileTexts}>
-                    <span><b>Id</b> {sessionStorage.getItem('userId')} </span>
-                    <span><b>Username</b> {useSelector(state => state.profile.username)} </span>
-                    <span><b>Admin </b> {useSelector(state => state.profile.isAdmin).toString()} </span>
-                </div>
+                <form onSubmit={updateUserLocal} className={styles.profileForm}>
+                    <div className={styles.profileTexts}>
+                        <span><b>Id</b> {sessionStorage.getItem('userId')} </span>
+                        <span><b>Username</b> {useSelector(state => state.profile.username)} </span>
+                        <span><b>Admin </b> {useSelector(state => state.profile.isAdmin).toString()} </span>
+                    </div>
 
-                <label className={styles.label} htmlFor="input-firstName">
-                    First name
-                </label>
-                <input
-                    onChange={(e) => dispatch(setFirstName(e.target.value))}
-                    value={useSelector(state => state.profile.firstName)}
-                    className={styles.input} id='input-firstName'
-                    type="text"/>
+                    <label className={styles.label} htmlFor="input-firstName">
+                        First name
+                    </label>
+                    <input
+                        onChange={(e) => dispatch(setFirstName(e.target.value))}
+                        value={useSelector(state => state.profile.firstName)}
+                        className={styles.input} id='input-firstName'
+                        type="text"/>
 
-                <label className={styles.label} htmlFor="input-lastName">
-                    Last name
-                </label>
-                <input
-                    onChange={(e) => dispatch(setLastName(e.target.value))}
-                    value={useSelector(state => state.profile.lastName)}
-                    className={styles.input} id='input-lastName' type="text"/>
+                    <label className={styles.label} htmlFor="input-lastName">
+                        Last name
+                    </label>
+                    <input
+                        onChange={(e) => dispatch(setLastName(e.target.value))}
+                        value={useSelector(state => state.profile.lastName)}
+                        className={styles.input} id='input-lastName' type="text"/>
 
-                <div className={styles.profileButtonGroup}>
-                    <button onClick={updateUserLocal}
-                            className={styles.button}
-                            type='button'>
-                        Update profile
-                    </button>
-                    <button onClick={() => router.push('/board')}
-                            className={styles.button}
-                            type='button'>
-                        Back to the game
-                    </button>
-                </div>
+                    <div className={styles.profileButtonGroup}>
+                        <button onClick={updateUserLocal}
+                                className={styles.button}
+                                type='button'>
+                            Update profile
+                        </button>
+                        <button onClick={() => router.push('/board')}
+                                className={styles.button}
+                                type='button'>
+                            Back to the game
+                        </button>
+                    </div>
 
-                <div className={styles.logout}>
-                    <button onClick={logout}
-                            className={styles.logoutButton}
-                            type='button'>
-                        Log out
-                    </button>
-                </div>
-            </form>
-        </div>
+                    <div className={styles.logout}>
+                        <button onClick={logout}
+                                className={styles.logoutButton}
+                                type='button'>
+                            Log out
+                        </button>
+                    </div>
+                </form>
+            </div>
+            :
+            <></>
     );
 }
 
