@@ -1,46 +1,60 @@
 "use client"
 
 import React, {useEffect} from 'react';
-// import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import styles from './styles.module.css';
 import {useRouter} from "next/navigation";
+import {fetchUserInformation, setFirstName, setLastName, updateUserInformation} from "@/app/redux/profileSlice";
 
 function Profile() {
-    // const dispatch = useDispatch();
     const router = useRouter();
+    const dispatch = useDispatch();
 
-    /* ------------------------------------------- */
-
+    // Fetch info on the first render
     useEffect(() => {
         fetchUserInfo();
     }, [])
 
-    /* ------------------------------------------- */
-
+    // Fetch user information on page load from the server
     function fetchUserInfo() {
-        console.log('fetchUserInfo');
+        dispatch(fetchUserInformation()).catch(() => {
+            alert('An error occurred while fetching user information');
+        });
     }
 
-    function updateUserLocal() {
-        console.log('updateUserLocal');
+    // Update user information locally and on the server via Redux
+    const updateUserLocal = (e) => {
+        e?.preventDefault();
+
+        dispatch(updateUserInformation())
+            .then(() => {
+                alert('User information updated');
+            })
+            .catch(() => {
+                alert('An error occurred while updating user information');
+            });
     }
 
     function logout() {
-        fetch('http://localhost:9090/logout?token=' + sessionStorage.getItem('token'), {
-            method: 'POST'
-        }).then((response) => {
+        fetch('http://localhost:9090/logout?token='
+            + sessionStorage.getItem('token'),
+            {
+                method: 'POST'
+            }).then((response) => {
+
             if (response.ok) {
                 sessionStorage.removeItem('token');
                 sessionStorage.removeItem('userId');
                 router.push('/login');
                 return;
             }
+
             throw {
                 message: 'Error logging out'
             };
         }).catch(() => {
-            // TODO: add a popoup instead of alert
+            // TODO: add a pop-up instead of alert
             alert('Error logging out');
         });
     }
@@ -50,38 +64,45 @@ function Profile() {
             <h1 className={styles.profileText}><b>Profile</b></h1>
 
             <form onSubmit={updateUserLocal} className={styles.profileForm}>
-                <span><b>Id: </b>1 </span>
-                <span><b>Username: </b>Boierul</span>
-                <span style={{
-                    marginBottom: '10px',
-                }}><b>Is an admin?: </b> No
-                </span>
+                <div className={styles.profileTexts}>
+                    <span><b>Id</b> {sessionStorage.getItem('userId')} </span>
+                    <span><b>Username</b> {useSelector(state => state.profile.username)} </span>
+                    <span><b>Admin </b> {useSelector(state => state.profile.isAdmin).toString()} </span>
+                </div>
 
-                <label className={styles.label} htmlFor="input-firstName">First name</label>
-                <input value="Dan"
-                       className={styles.input} id='input-firstName' type="text"/>
-                <label className={styles.label} htmlFor="input-lastName">Last name</label>
-                <input value="Pintea"
-                       className={styles.input} id='input-firstName' type="text"/>
+                <label className={styles.label} htmlFor="input-firstName">
+                    First name
+                </label>
+                <input
+                    onChange={(e) => dispatch(setFirstName(e.target.value))}
+                    value={useSelector(state => state.profile.firstName)}
+                    className={styles.input} id='input-firstName'
+                    type="text"/>
 
-                {/*<label htmlFor="input-favoriteGame">Favorite game</label>*/}
-                {/*<input onChange={(e) => dispatch(setFavoriteGame(e.target.value))}*/}
-                {/*       value={useSelector(state => state.profile.favoriteGame)}*/}
-                {/*       className='border border-solid border-black mb-5' id='input-favoriteGame' type="text"/>*/}
+                <label className={styles.label} htmlFor="input-lastName">
+                    Last name
+                </label>
+                <input
+                    onChange={(e) => dispatch(setLastName(e.target.value))}
+                    value={useSelector(state => state.profile.lastName)}
+                    className={styles.input} id='input-lastName' type="text"/>
 
                 <div className={styles.profileButtonGroup}>
                     <button onClick={updateUserLocal}
-                            className={styles.profileButton}
+                            className={styles.button}
                             type='button'>
                         Update profile
                     </button>
-                    <button onClick={() => window.location.href = '/board'}
-                            className={styles.profileButton}
+                    <button onClick={() => router.push('/board')}
+                            className={styles.button}
                             type='button'>
                         Back to the game
                     </button>
+                </div>
+
+                <div className={styles.logout}>
                     <button onClick={logout}
-                            className={styles.profileButton}
+                            className={styles.logoutButton}
                             type='button'>
                         Log out
                     </button>

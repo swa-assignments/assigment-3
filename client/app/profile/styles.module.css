@@ -1,57 +1,91 @@
 .profileContainer {
-    margin: 2rem;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
 }
 
 .profileText {
-    margin-bottom: 1.25rem;
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+.profileTexts {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
 }
 
 .profileForm {
-    margin-top: 1.25rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
 .profileForm > span {
+    font-size: 1rem;
     margin-bottom: 0.5rem;
 }
 
 .label {
     display: block;
-    margin-bottom: 0.625rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    font-size: 1rem;
     font-weight: bold;
 }
 
 .input {
+    width: 100%;
     border: 1px solid black;
-    margin-bottom: 0.625rem;
     padding: 0.625rem;
+    border-radius: 0.375rem;
+    font-size: 1rem;
 }
 
-.profileButton {
+.button {
     margin-top: 1rem;
+    height: 3rem;
     align-self: flex-start;
     padding: 0.625rem 1rem;
     border: 1px solid black;
     background: white;
     border-radius: 0.375rem;
-    margin-bottom: 1.25rem;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
 }
 
-.profileButton:hover {
+.button:hover {
     background: black;
     color: white;
 }
 
 .profileButtonGroup {
     display: flex;
-    justify-content: space-between;
-    gap: 1rem;
+    flex-direction: row;
+    gap: 10px;
 }
+
+.logout {
+    position: absolute;
+    top: 2rem;
+    right: 3rem;
+}
+
+.logoutButton {
+    width: 100%;
+    font-size: 0.9rem;
+    border: none;
+    background-color: #fff;
+    color: #000;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.logoutButton:hover {
+    color: #727272;
+}
+

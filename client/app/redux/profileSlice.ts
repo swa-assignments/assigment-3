@@ -24,12 +24,16 @@ export const profileSlice = createSlice({
     }
 })
 
-export const {setFirstName, setLastName, setFavoriteGame, setUsername, setIsAdmin} = profileSlice.actions
+export const {setFirstName, setLastName, setUsername, setIsAdmin} = profileSlice.actions
 
 export const fetchUserInformation = () => (dispatch) => {
-    return fetch('http://localhost:9090/users/' + sessionStorage.getItem('userId') + '?token=' + sessionStorage.getItem('token'), {
-        method: 'GET',
-    }).then((response) => {
+    return fetch('http://localhost:9090/users/'
+        + sessionStorage.getItem('userId')
+        + '?token=' + sessionStorage.getItem('token'),
+        {
+            method: 'GET',
+        }).then((response) => {
+
         if (response.ok) {
             return response.json().then((_body) => {
                 dispatch(setUsername(_body.username));
@@ -38,6 +42,7 @@ export const fetchUserInformation = () => (dispatch) => {
                 dispatch(setIsAdmin(_body.admin));
             });
         }
+
         throw {
             status: response.status,
             statusText: response.statusText
@@ -45,18 +50,24 @@ export const fetchUserInformation = () => (dispatch) => {
     })
 };
 
-export const updateUser = () => (dispatch, state) => {
-    return fetch('http://localhost:9090/users/' + sessionStorage.getItem('userId') + '?token=' + sessionStorage.getItem('token'), {
-        method: 'PATCH', headers: {
-            'Content-Type': 'application/json',
-        }, body: JSON.stringify({
-            firstName: state().profile.firstName,
-            lastName: state().profile.lastName
-        }),
-    }).then((response) => {
+export const updateUserInformation = () => (dispatch, state) => {
+    return fetch('http://localhost:9090/users/'
+        + sessionStorage.getItem('userId')
+        + '?token=' + sessionStorage.getItem('token'),
+        {
+            method: 'PATCH', headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                firstName: state().profile.firstName,
+                lastName: state().profile.lastName
+            }),
+        }).then((response) => {
+
         if (response.ok) {
             return;
         }
+
         throw {
             status: response.status,
             statusText: response.statusText

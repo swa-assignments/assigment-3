@@ -5,7 +5,8 @@ import profileReducer from '@/app/redux/profileSlice';
 
 export const store = configureStore({
     reducer: {
-        game: candyCrushSlice, profile: profileReducer,
+        game: candyCrushSlice,
+        profile: profileReducer,
     },
     devTools: true
 })
