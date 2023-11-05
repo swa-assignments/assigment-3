@@ -96,7 +96,14 @@ function Login() {
 
                         <Toast.Root className={styles.ToastRoot} open={open} onOpenChange={openModal}>
                             <Toast.Title className={styles.ToastTitle}>
-                                <span className={styles.ToastTitleErrorText}>ERROR:</span> {error ? error : ''}
+                                {(error != null && error !== '') && (
+                                    <>
+                                            <span className={styles.ToastTitleErrorText}>
+                                                Error: <b/>
+                                            </span>
+                                        {error ? error : ''}
+                                    </>
+                                )}
                             </Toast.Title>
                         </Toast.Root>
 

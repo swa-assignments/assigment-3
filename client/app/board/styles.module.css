@@ -5,3 +5,39 @@
     justify-content: center;
     height: 100vh;
 }
+
+.boardTableContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.boardTable {
+    width: 5rem;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-width: 2px;
+    border-style: dashed;
+    border-color: black;
+}
+
+.tile {
+    width: 5rem;
+    height: 5rem;
+    border: 2px solid rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.1rem;
+    cursor: pointer;
+}
+
+.tile.active {
+    border-style: dashed;
+    border-color: rgba(0, 0, 0, 0.5);
+}
+
+.tile:hover {
+    border-color: #ff3c00;
+}

@@ -122,18 +122,22 @@ function Profile() {
                             <Toast.Root className={styles.ToastRoot} open={open} onOpenChange={openModal}>
                                 <Toast.Title className={styles.ToastTitle}>
                                     {/* TODO: Needs something to remake (not the best implementation)*/}
-                                    {(error != null && error === '') && (
-                                        <span className={styles.ToastTitleErrorText}>
-                                            {error}
-                                        </span>
+                                    {(error != null && error !== '') && (
+                                        <>
+                                            <span className={styles.ToastTitleErrorText}>
+                                                Error: <b/>
+                                            </span>
+                                            {error ? error : ''}
+                                        </>
                                     )}
                                     {(success != null || success === '') && (
-                                        <span className={styles.ToastTitleSuccessText}>
-                                            {success}
-                                        </span>
+                                        <>
+                                            <span className={styles.ToastTitleSuccessText}>
+                                                SUCCESS: <b/>
+                                            </span>
+                                            {success ? success : ''}
+                                        </>
                                     )}
-                                    {/*<span className={styles.ToastTitleErrorText}>ERROR:</span> {error ? error : ''}*/}
-                                    {/*<span className={styles.ToastTitleSuccessText}>SUCCESS:</span> {success ? success : ''}*/}
                                 </Toast.Title>
                             </Toast.Root>
 

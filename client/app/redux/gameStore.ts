@@ -1,12 +1,11 @@
 import {configureStore} from '@reduxjs/toolkit'
 
-import {candyCrushSlice} from "@/app/redux/gameSlice";
+import candyCrushReducer from "@/app/redux/gameSlice";
 import profileReducer from '@/app/redux/profileSlice';
 
 export const store = configureStore({
     reducer: {
-        game: candyCrushSlice,
+        game: candyCrushReducer,
         profile: profileReducer,
-    },
-    devTools: true
+    }
 })
