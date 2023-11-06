@@ -1,4 +1,4 @@
-.boardContainer{
+.boardPage {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,9 +6,21 @@
     height: 100vh;
 }
 
+.boardContainer {
+    margin: 2rem;
+}
+
+.boardContainer.active {
+    opacity: 0.2;
+    pointer-events: none;
+    user-select: none;
+    transition: opacity 0.35s ease-in-out;
+}
+
 .boardTableContainer {
     display: flex;
     flex-direction: row;
+    user-select: none;
 }
 
 .boardTable {
@@ -40,4 +52,221 @@
 
 .tile:hover {
     border-color: #ff3c00;
+}
+
+.statsContainer {
+    max-width: 1000px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-top: 1rem;
+}
+
+.scoreContainer, .secondsContainer {
+    width: 150px;
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    margin-bottom: .25rem;
+}
+
+.scoreContainer > span,
+.secondsContainer > span {
+    font-weight: bold;
+}
+
+.buttonsContainer {
+    margin-left: 1rem;
+}
+
+
+.boardButton {
+    margin-left: .5rem;
+    width: auto;
+    padding: 1rem 2rem;
+    height: 3rem;
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+    border: 1px solid #000;
+    background-color: #fff;
+    color: #000;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer
+}
+
+.boardButton:hover {
+    border: 1px solid #000;
+    background-color: #000;
+    color: #fff;
+}
+
+.buttonText {
+    width: 100%;
+    font-size: 0.9rem;
+    border: none;
+    background-color: #fff;
+    color: #000;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.logout {
+    position: absolute;
+    top: 2rem;
+    right: 3rem;
+}
+
+.logoutButton {
+    width: 100%;
+    font-size: 0.9rem;
+    border: none;
+    background-color: #fff;
+    color: #000;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.playAgainButton {
+    width: 500px;
+    font-size: 1.2rem;
+    border: none;
+    background-color: #fff;
+    color: #fff;
+    padding: .5rem 2rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    animation: changeColor 15s infinite;
+    border-radius: 0.5rem;
+}
+
+.playAgainButton:hover {
+    /*background-color: #000;*/
+    /*color: #fff;*/
+    /*color: #727272;*/
+}
+
+.logoutButton:hover {
+    color: #727272;
+}
+
+.gameOver {
+    position: absolute;
+    top: 42.5%;
+    left: 50%;
+    transform: translate(-45%, -50%);
+    color: #FF6E6C;
+    font-size: 2rem;
+}
+
+
+.ToastViewport {
+    --viewport-padding: 25px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    padding: var(--viewport-padding);
+    gap: 10px;
+    width: 390px;
+    max-width: 100vw;
+    margin: 0;
+    list-style: none;
+    z-index: 2147483647;
+    outline: none;
+}
+
+.ToastRoot {
+    background-color: rgba(0, 0, 0, 0.94);
+    border-radius: 6px;
+    box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+    padding: 15px;
+    display: grid;
+    grid-template-areas: 'title action' 'description action';
+    grid-template-columns: auto max-content;
+    column-gap: 15px;
+    align-items: center;
+}
+
+.ToastRoot[data-state='open'] {
+    animation: slideIn 750ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ToastRoot[data-state='closed'] {
+    animation: hide 200ms ease-in;
+}
+
+.ToastRoot[data-swipe='move'] {
+    transform: translateX(0px);
+}
+
+.ToastRoot[data-swipe='cancel'] {
+    transform: translateX(0);
+    transition: transform 400ms ease-out;
+}
+
+.ToastRoot[data-swipe='end'] {
+    animation: swipeOut 500ms ease-out;
+}
+
+.ToastTitle {
+    font-weight: 500;
+    color: #fff;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.ToastTitleErrorText {
+    color: #ff3142;
+}
+
+@keyframes hide {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(calc(100% + var(--viewport-padding)));
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes swipeOut {
+    from {
+        transform: translateX(0px);
+    }
+    to {
+        transform: translateX(calc(100% + var(--viewport-padding)));
+    }
+}
+
+@keyframes changeColor {
+    0% {
+        background-color: #FF6E6C;
+    }
+    25% {
+        background-color: #F9BC60;
+    }
+    50% {
+        background-color: #FF8BA7;
+    }
+    75% {
+        background-color: #67568C;
+    }
+    100% {
+        background-color: #FF6E6C;
+    }
 }

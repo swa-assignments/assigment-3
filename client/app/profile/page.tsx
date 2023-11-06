@@ -143,6 +143,7 @@ function Profile() {
 
                             <Toast.Viewport className={styles.ToastViewport}/>
                         </Toast.Provider>
+
                         <button onClick={() => router.push('/board')}
                                 className={styles.button}
                                 type='button'>
