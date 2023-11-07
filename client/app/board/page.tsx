@@ -144,13 +144,6 @@ const BoardView = () => {
                 </div>
             )}
             <Toast.Provider swipeDirection="right">
-                <div className={styles.logout}>
-                    <button onClick={logout}
-                            className={styles.logoutButton}
-                            type='button'>
-                        Log out
-                    </button>
-                </div>
 
                 <Toast.Root className={styles.ToastRoot} open={open} onOpenChange={openModal}>
                     <Toast.Title className={styles.ToastTitle}>
@@ -162,19 +155,19 @@ const BoardView = () => {
                                 {error ? error : ''}
                             </>
                         )}
-                        {/*{(game !== '') && (*/}
-                        {/*    <>*/}
-                        {/*                <span className={styles.ToastTitleErrorText}>*/}
-                        {/*                    GAME OVER: <b/>*/}
-                        {/*                </span>*/}
-                        {/*        {game ? game : ''}*/}
-                        {/*    </>*/}
-                        {/*)}*/}
                     </Toast.Title>
                 </Toast.Root>
 
                 <Toast.Viewport className={styles.ToastViewport}/>
             </Toast.Provider>
+
+            <div className={styles.logout}>
+                <button onClick={logout}
+                        className={styles.logoutButton}
+                        type='button'>
+                    Log out
+                </button>
+            </div>
 
         </div> : <></>
     )
