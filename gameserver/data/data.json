@@ -3356,6 +3356,102 @@
       "user": 2,
       "id": 549,
       "score": 0,
+      "completed": true
+    },
+    {
+      "user": 2,
+      "id": 550,
+      "score": 0,
+      "completed": false
+    },
+    {
+      "user": 2,
+      "id": 551,
+      "score": 0,
+      "completed": false
+    },
+    {
+      "user": 2,
+      "id": 552,
+      "score": 0,
+      "completed": false
+    },
+    {
+      "user": 2,
+      "id": 553,
+      "score": 0,
+      "completed": false
+    },
+    {
+      "user": 2,
+      "id": 554,
+      "score": 0,
+      "completed": false
+    },
+    {
+      "user": 2,
+      "id": 555,
+      "score": 0,
+      "completed": false
+    },
+    {
+      "user": 2,
+      "id": 556,
+      "score": 0,
+      "completed": false
+    },
+    {
+      "user": 2,
+      "id": 557,
+      "score": 30,
+      "completed": false
+    },
+    {
+      "user": 2,
+      "id": 558,
+      "score": 0,
+      "completed": false
+    },
+    {
+      "user": 2,
+      "id": 559,
+      "score": 0,
+      "completed": false
+    },
+    {
+      "user": 2,
+      "id": 560,
+      "score": 0,
+      "completed": false
+    },
+    {
+      "user": 2,
+      "id": 561,
+      "score": 0,
+      "completed": false
+    },
+    {
+      "user": 2,
+      "id": 562,
+      "score": 0,
+      "completed": false
+    },
+    {
+      "user": 2,
+      "id": 563,
+      "score": 0,
+      "completed": false
+    },
+    {
+      "user": 2,
+      "id": 564,
+      "score": 0,
+      "completed": false
+    },
+    {
+      "user": 2,
+      "id": 565,
+      "score": 0,
       "completed": false
     }
   ]

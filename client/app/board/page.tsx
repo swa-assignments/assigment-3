@@ -95,7 +95,7 @@ const BoardView = () => {
                                     dispatch(handleSelectTile(rowIndex, colIndex));
                                     console.log(cell)
                                 }}>
-                                {cell}
+                                {cell.value}
                             </div>
                         ))}
                     </div>)}
